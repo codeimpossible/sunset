@@ -1,7 +1,7 @@
 {
   "name": "sunset",
   "main": "./lib/sunset",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Change your UI and Syntax themes based on the time of day!",
   "keywords": [
     "themes",
