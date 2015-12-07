@@ -5,25 +5,25 @@ module.exports = Sunset =
     daytime_syntax_theme:
       title: 'Daytime Theme (Syntax)'
       description: 'What syntax theme should I use during daylight?'
-      default: atom.themes.getActiveThemeNames()[0]
+      default: ''
       type: 'string'
       enum: atom.config.settings.core.themes
     daytime_ui_theme:
       title: 'Daytime Theme (UI)'
       description: 'What UI theme should I use during daylight?'
-      default: atom.themes.getActiveThemeNames()[1]
+      default: ''
       type: 'string'
       enum: atom.config.settings.core.themes
     nighttime_syntax_theme:
       title: 'Nighttime Theme (Syntax)'
       description: 'What syntax theme should I use during nighttime?'
-      default: atom.themes.getActiveThemeNames()[0]
+      default: ''
       type: 'string'
       enum: atom.config.settings.core.themes
     nighttime_ui_theme:
       title: 'Nighttime Theme (UI)'
       description: 'What UI theme should I use during nighttime?'
-      default: atom.themes.getActiveThemeNames()[1]
+      default: ''
       type: 'string'
       enum: atom.config.settings.core.themes
     when_does_it_get_dark:
@@ -52,13 +52,20 @@ module.exports = Sunset =
     @bindEvents()
     @tick()
 
+    syntax_themes = atom.themes.getLoadedThemes().filter((theme) -> theme.metadata.theme is 'syntax').map((theme) -> theme.name)
+    ui_themes = atom.themes.getLoadedThemes().filter((theme) -> theme.metadata.theme is 'ui').map((theme) -> theme.name)
+
     # hack, but populate the settings so people can easily pick themes to change between
     @config.daytime_syntax_theme.enum =
-      @config.nighttime_syntax_theme.enum =
-      atom.themes.getLoadedThemes().filter((theme) -> theme.metadata.theme is 'syntax').map((theme) -> theme.name)
+      @config.nighttime_syntax_theme.enum = syntax_themes
+
     @config.daytime_ui_theme.enum =
-      @config.nighttime_ui_theme.enum =
-      atom.themes.getLoadedThemes().filter((theme) -> theme.metadata.theme is 'ui').map((theme) -> theme.name)
+      @config.nighttime_ui_theme.enum = ui_themes
+
+    @config.daytime_ui_theme.default =
+      @config.nighttime_ui_theme.default = ui_themes[0]
+    @config.daytime_syntax_theme.default =
+      @config.nighttime_syntax_theme.default = syntax_themes[0];
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
@@ -94,12 +101,14 @@ module.exports = Sunset =
   tick: ->
     now = new Date
     twenty_four_hour = (now.getHours() * 100) + now.getMinutes()
-    themes = atom.config.settings.core.themes.slice() # copy the array
+    current_theme_names = atom.themes.getActiveThemeNames()
+    themes = current_theme_names.slice() # copy the array
     themes = @daytime_themes if twenty_four_hour >= atom.config.get('sunset.when_does_it_get_light')
     themes = @nighttime_themes if twenty_four_hour >= atom.config.get('sunset.when_does_it_get_dark')
+    themes = @nighttime_themes if twenty_four_hour < atom.config.get('sunset.when_does_it_get_light')
 
     # store the theme change :D
-    atom.config.set('core.themes', themes) if themes[0] != atom.config.settings.core.themes[0] || themes[1] != atom.config.settings.core.themes[1]
+    atom.config.set('core.themes', themes) unless themes.filter((t) -> current_theme_names.indexOf(t) > -1).length == current_theme_names.length
 
   deactivate: ->
     @subscriptions.dispose()
