@@ -44,8 +44,6 @@ module.exports = Sunset =
   subscriptions: null
 
   activate: (state) ->
-    {0:currentUiTheme, 1:currentSyntaxTheme} = atom.config.settings.core.themes
-
     @tock = setInterval () =>
       @tick()
     , 1 * 60 * 1000
