@@ -1,7 +1,7 @@
 {
   "name": "sunset",
   "main": "./lib/sunset",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Change your UI and Syntax themes based on the time of day!",
   "keywords": [
     "themes",
@@ -14,6 +14,5 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {
-  }
+  "dependencies": {}
 }
