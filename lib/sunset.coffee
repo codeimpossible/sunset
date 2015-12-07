@@ -7,25 +7,25 @@ module.exports = Sunset =
       description: 'What syntax theme should I use during daylight?'
       default: ''
       type: 'string'
-      enum: atom.config.settings.core.themes
+      enum: ['']
     daytime_ui_theme:
       title: 'Daytime Theme (UI)'
       description: 'What UI theme should I use during daylight?'
       default: ''
       type: 'string'
-      enum: atom.config.settings.core.themes
+      enum: ['']
     nighttime_syntax_theme:
       title: 'Nighttime Theme (Syntax)'
       description: 'What syntax theme should I use during nighttime?'
       default: ''
       type: 'string'
-      enum: atom.config.settings.core.themes
+      enum: ['']
     nighttime_ui_theme:
       title: 'Nighttime Theme (UI)'
       description: 'What UI theme should I use during nighttime?'
       default: ''
       type: 'string'
-      enum: atom.config.settings.core.themes
+      enum: ['']
     when_does_it_get_dark:
       title: 'When does nighttime start?'
       description: 'When (in 24hr format) does the sun set?'
