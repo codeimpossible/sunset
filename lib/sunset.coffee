@@ -40,6 +40,11 @@ module.exports = Sunset =
       minimum: 0
       maximum: 2400
       type: 'number'
+    has_been_configured:
+      title: 'This plugin has been configured?'
+      description: 'Internal state tracking. Don\'t change this yourself unless you are ok with bugs.'
+      default: false
+      type: 'boolean'
 
   subscriptions: null
 
@@ -69,18 +74,22 @@ module.exports = Sunset =
 
   bindEvents: ->
     atom.config.onDidChange 'sunset.nighttime_ui_theme', ({newValue, oldValue}) =>
+      atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
     atom.config.onDidChange 'sunset.nighttime_syntax_theme', ({newValue, oldValue}) =>
+      atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
     atom.config.onDidChange 'sunset.daytime_ui_theme', ({newValue, oldValue}) =>
+      atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
     atom.config.onDidChange 'sunset.daytime_syntax_theme', ({newValue, oldValue}) =>
+      atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
@@ -96,6 +105,7 @@ module.exports = Sunset =
     ]
 
   tick: ->
+    return unless atom.config.get('sunset.has_been_configured')
     now = new Date
     twenty_four_hour = (now.getHours() * 100) + now.getMinutes()
     current_theme_names = atom.themes.getActiveThemeNames()
