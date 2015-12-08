@@ -73,22 +73,22 @@ module.exports = Sunset =
     @subscriptions = new CompositeDisposable
 
   bindEvents: ->
-    atom.config.onDidChange 'sunset.nighttime_ui_theme', ({newValue, oldValue}) =>
+    atom.config.observe 'sunset.nighttime_ui_theme', (value) =>
       atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
-    atom.config.onDidChange 'sunset.nighttime_syntax_theme', ({newValue, oldValue}) =>
+    atom.config.observe 'sunset.nighttime_syntax_theme', (value) =>
       atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
-    atom.config.onDidChange 'sunset.daytime_ui_theme', ({newValue, oldValue}) =>
+    atom.config.observe 'sunset.daytime_ui_theme', (value) =>
       atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
 
-    atom.config.onDidChange 'sunset.daytime_syntax_theme', ({newValue, oldValue}) =>
+    atom.config.observe 'sunset.daytime_syntax_theme', (value) =>
       atom.config.set('sunset.has_been_configured', true)
       @setup()
       @tick()
