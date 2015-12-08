@@ -1,31 +1,31 @@
 {CompositeDisposable} = require 'atom'
 
+cached_themes =
+  ui: []
+  syntax: []
+
 module.exports = Sunset =
   config:
     daytime_syntax_theme:
       title: 'Daytime Theme (Syntax)'
       description: 'What syntax theme should I use during daylight?'
-      default: ''
       type: 'string'
-      enum: ['']
+      default: 'atom-light-syntax'
     daytime_ui_theme:
       title: 'Daytime Theme (UI)'
       description: 'What UI theme should I use during daylight?'
-      default: ''
       type: 'string'
-      enum: ['']
+      default: 'atom-light-ui'
     nighttime_syntax_theme:
       title: 'Nighttime Theme (Syntax)'
       description: 'What syntax theme should I use during nighttime?'
-      default: ''
       type: 'string'
-      enum: ['']
+      default: 'atom-dark-syntax'
     nighttime_ui_theme:
       title: 'Nighttime Theme (UI)'
       description: 'What UI theme should I use during nighttime?'
-      default: ''
       type: 'string'
-      enum: ['']
+      default: 'atom-dark-ui'
     when_does_it_get_dark:
       title: 'When does nighttime start?'
       description: 'When (in 24hr format) does the sun set?'
@@ -52,20 +52,17 @@ module.exports = Sunset =
     @bindEvents()
     @tick()
 
-    syntax_themes = atom.themes.getLoadedThemes().filter((theme) -> theme.metadata.theme is 'syntax').map((theme) -> theme.name)
-    ui_themes = atom.themes.getLoadedThemes().filter((theme) -> theme.metadata.theme is 'ui').map((theme) -> theme.name)
+    atom.themes.getLoadedThemes().forEach (theme) ->
+      cached_themes.ui.push(theme.name) if theme.metadata.theme is 'ui'
+      cached_themes.syntax.push(theme.name) if theme.metadata.theme is 'syntax'
 
-    # hack, but populate the settings so people can easily pick themes to change between
-    @config.daytime_syntax_theme.enum =
-      @config.nighttime_syntax_theme.enum = syntax_themes
+    @config.daytime_syntax_theme.description =
+      @config.nighttime_syntax_theme.description =
+        'Values can be `' + cached_themes.syntax.join(', ') + '`'
 
-    @config.daytime_ui_theme.enum =
-      @config.nighttime_ui_theme.enum = ui_themes
-
-    @config.daytime_ui_theme.default =
-      @config.nighttime_ui_theme.default = ui_themes[0]
-    @config.daytime_syntax_theme.default =
-      @config.nighttime_syntax_theme.default = syntax_themes[0];
+    @config.daytime_ui_theme.description =
+      @config.nighttime_ui_theme.description =
+        'Values can be `' + cached_themes.ui.join(', ') + '`'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
