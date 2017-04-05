@@ -3,29 +3,33 @@
 cached_themes =
   ui: []
   syntax: []
-
+    
 module.exports = Sunset =
   config:
     daytime_syntax_theme:
       title: 'Daytime Syntax Theme'
-      description: 'What syntax theme should I use during daylight?'
+      description: 'What syntax theme should I use during the day?'
       type: 'string'
       default: 'one-light-syntax'
+      enum: cached_themes.syntax
     daytime_ui_theme:
       title: 'Daytime UI Theme'
-      description: 'What UI theme should I use during daylight?'
+      description: 'What UI theme should I use during the day?'
       type: 'string'
       default: 'one-light-ui'
+      enum: cached_themes.ui
     nighttime_syntax_theme:
       title: 'Night-time Syntax Theme'
-      description: 'What syntax theme should I use during nighttime?'
+      description: 'What syntax theme should I use during the night?'
       type: 'string'
       default: 'one-dark-syntax'
+      enum: cached_themes.syntax
     nighttime_ui_theme:
       title: 'Night-time UI Theme'
-      description: 'What UI theme should I use during nighttime?'
+      description: 'What UI theme should I use during the night?'
       type: 'string'
       default: 'one-dark-ui'
+      enum: cached_themes.ui
     when_does_it_get_dark:
       title: 'When does the sun set?'
       description: 'Use a 24hr format: 8:00PM equals 20:00, so type 2000'
@@ -56,18 +60,14 @@ module.exports = Sunset =
     @setup()
     @bindEvents()
     @tick()
+    
+    createThemeMenuItem = (themeName) ->
+      themeName.replace(/-(ui|syntax)/g, '').replace(/-theme$/g, '').replace(/-/g, ' ').replace(/([a-z])([A-Z])/g, '$1 $2').replace(/\b([A-Z]+)([A-Z])([a-z])/, '$1 $2$3').replace /^./, (s) ->
+        s.toUpperCase()
 
     atom.themes.getLoadedThemes().forEach (theme) ->
-      cached_themes.ui.push(theme.name) if theme.metadata.theme is 'ui'
-      cached_themes.syntax.push(theme.name) if theme.metadata.theme is 'syntax'
-
-    @config.daytime_syntax_theme.description =
-      @config.nighttime_syntax_theme.description =
-        'Choose from: `' + cached_themes.syntax.join(', ') + '`'
-
-    @config.daytime_ui_theme.description =
-      @config.nighttime_ui_theme.description =
-        'Choose from: `' + cached_themes.ui.join(', ') + '`'
+      cached_themes.ui.push({ value: theme.name, description: createThemeMenuItem(theme.name) }) if theme.metadata.theme is 'ui'
+      cached_themes.syntax.push({ value: theme.name, description: createThemeMenuItem(theme.name) }) if theme.metadata.theme is 'syntax'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
