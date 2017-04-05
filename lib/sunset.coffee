@@ -7,35 +7,35 @@ cached_themes =
 module.exports = Sunset =
   config:
     daytime_syntax_theme:
-      title: 'Daytime Theme (Syntax)'
+      title: 'Daytime Syntax Theme'
       description: 'What syntax theme should I use during daylight?'
       type: 'string'
-      default: 'atom-light-syntax'
+      default: 'one-light-syntax'
     daytime_ui_theme:
-      title: 'Daytime Theme (UI)'
+      title: 'Daytime UI Theme'
       description: 'What UI theme should I use during daylight?'
       type: 'string'
-      default: 'atom-light-ui'
+      default: 'one-light-ui'
     nighttime_syntax_theme:
-      title: 'Nighttime Theme (Syntax)'
+      title: 'Night-time Syntax Theme'
       description: 'What syntax theme should I use during nighttime?'
       type: 'string'
-      default: 'atom-dark-syntax'
+      default: 'one-dark-syntax'
     nighttime_ui_theme:
-      title: 'Nighttime Theme (UI)'
+      title: 'Night-time UI Theme'
       description: 'What UI theme should I use during nighttime?'
       type: 'string'
-      default: 'atom-dark-ui'
+      default: 'one-dark-ui'
     when_does_it_get_dark:
-      title: 'When does nighttime start?'
-      description: 'When (in 24hr format) does the sun set?'
+      title: 'When does the sun set?'
+      description: 'Use a 24hr format: 8:00PM equals 20:00, so type 2000'
       default: 1800
       minimum: 0
       maximum: 2400
       type: 'number'
     when_does_it_get_light:
-      title: 'When does daytime start?'
-      description: 'When (in 24hr format) does the sun rise?'
+      title: 'When does the sun rise?'
+      description: 'Use a 24hr format: 8:00PM equals 20:00, so type 2000'
       default: 500
       minimum: 0
       maximum: 2400
@@ -63,11 +63,11 @@ module.exports = Sunset =
 
     @config.daytime_syntax_theme.description =
       @config.nighttime_syntax_theme.description =
-        'Values can be `' + cached_themes.syntax.join(', ') + '`'
+        'Choose from: `' + cached_themes.syntax.join(', ') + '`'
 
     @config.daytime_ui_theme.description =
       @config.nighttime_ui_theme.description =
-        'Values can be `' + cached_themes.ui.join(', ') + '`'
+        'Choose from: `' + cached_themes.ui.join(', ') + '`'
 
     # Events subscribed to in atom's system can be easily cleaned up with a CompositeDisposable
     @subscriptions = new CompositeDisposable
