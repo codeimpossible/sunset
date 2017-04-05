@@ -3,7 +3,7 @@
 cached_themes =
   ui: []
   syntax: []
-    
+
 module.exports = Sunset =
   config:
     daytime_syntax_theme:
