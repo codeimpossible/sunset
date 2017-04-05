@@ -3,6 +3,32 @@
 cached_themes =
   ui: []
   syntax: []
+times = [
+  { value: 0, description: '0:00 (12AM)' },
+  { value: 100, description: '1:00 (1AM)' },
+  { value: 200, description: '2:00 (2AM)' },
+  { value: 300, description: '3:00 (3AM)' },
+  { value: 400, description: '4:00 (4AM)' },
+  { value: 500, description: '5:00 (5AM)' },
+  { value: 600, description: '6:00 (6AM)' },
+  { value: 700, description: '7:00 (7AM)' },
+  { value: 800, description: '8:00 (8AM)' },
+  { value: 900, description: '9:00 (9AM)' },
+  { value: 1000, description: '10:00 (10AM)' },
+  { value: 1100, description: '11:00 (11AM)' },
+  { value: 1200, description: '12:00 (12PM)' },
+  { value: 1300, description: '13:00 (1PM)' },
+  { value: 1400, description: '14:00 (2PM)' },
+  { value: 1500, description: '15:00 (3PM)' },
+  { value: 1600, description: '16:00 (4PM)' },
+  { value: 1700, description: '17:00 (5PM)' },
+  { value: 1800, description: '18:00 (6PM)' },
+  { value: 1900, description: '19:00 (7PM)' },
+  { value: 2000, description: '20:00 (8PM)' },
+  { value: 2100, description: '21:00 (9PM)' },
+  { value: 2200, description: '22:00 (10PM)' },
+  { value: 2300, description: '23:00 (11PM)' }
+]
 
 module.exports = Sunset =
   config:
@@ -37,6 +63,7 @@ module.exports = Sunset =
       minimum: 0
       maximum: 2400
       type: 'number'
+      enum: times
     when_does_it_get_light:
       title: 'When does the sun rise?'
       description: 'Use a 24hr format: 8:00PM equals 20:00, so type 2000'
@@ -44,6 +71,7 @@ module.exports = Sunset =
       minimum: 0
       maximum: 2400
       type: 'number'
+      enum: times
     has_been_configured:
       title: 'This plugin has been configured?'
       description: 'Internal state tracking. Don\'t change this yourself unless you are ok with bugs.'
