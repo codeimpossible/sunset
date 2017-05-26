@@ -2,3 +2,6 @@
 # yarn lockfile v1
 
 
+eslint-config-agrc@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/eslint-config-agrc/-/eslint-config-agrc-1.1.0.tgz#1d2a8d432b6974a8793c64958724cabda02f5b4e"

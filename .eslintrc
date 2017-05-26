@@ -1,0 +1,6 @@
+{
+    extends: "agrc",
+    globals: {
+        atom: true
+    }
+}

@@ -14,5 +14,8 @@
   "engines": {
     "atom": ">=1.0.0 <2.0.0"
   },
-  "dependencies": {}
+  "dependencies": {},
+  "devDependencies": {
+    "eslint-config-agrc": "^1.1.0"
+  }
 }
