@@ -20,3 +20,12 @@ By default, sunset doesn't start working until you configure the themes. I did t
 **Then enter the times of Sunrise and Sunset in 24 hour format.** The defaults are daytime at 5am and nighttime at 6pm.
 
 **You're all set!**
+
+
+### Publishing a release of sunset
+
+Because I don't do this very often, here are the steps to release a new version of sunset.
+
+- make sure all the changes are merged to master
+- CHANGELOG should have the notes for the version in it already
+- run `$ apm publish <version>` or `$ apm publish major | minor | patch`
