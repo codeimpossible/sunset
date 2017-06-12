@@ -1,6 +1,10 @@
 {
-    extends: "agrc",
+    extends: "airbnb",
     globals: {
         atom: true
+    },
+    rules: {
+        'import/no-extraneous-dependencies': 0,
+        'import/no-unresolved': 0
     }
 }
