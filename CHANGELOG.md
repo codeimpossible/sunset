@@ -1,4 +1,7 @@
 
+## 1.2.1
+* switches from coffeescript to javascript
+
 ## 1.2.0
 * Picking your day/night themes and setting the changeover time is now way easier thanks to @Superpencil.
 
