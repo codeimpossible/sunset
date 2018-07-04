@@ -1,4 +1,9 @@
 
+## 1.3.0
+* ip-api.com is used for Geolocation, since freegeoip.net got shut down.
+* [Bugg #11](https://github.com/codeimpossible/sunset/issues/11) is fixed
+* [Bug #1](https://github.com/codeimpossible/sunset/issues/1) is fixed
+
 ## 1.2.1
 * switches from coffeescript to javascript
 
